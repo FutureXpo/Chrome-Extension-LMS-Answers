@@ -1,9 +1,7 @@
-$.get(chrome.extension.getURL('/injected.js'), 
-	function(data) {
-		var script = document.createElement("script");
-		script.setAttribute("type", "text/javascript");
-		script.innerHTML = data;
-		document.getElementsByTagName("head")[0].appendChild(script);
-		document.getElementsByTagName("body")[0].setAttribute("onLoad", "injected_main();");
-	}
-);
+chrome.browserAction.setBadgeText({text: "on"});
+//При нажатии иконки расширения вызывается данная функция
+chrome.browserAction.onClicked.addListener(function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {command: "show"});
+    });
+});
