@@ -1,20 +1,26 @@
 {
-  "name": "LMS helper ♥",
-  "description": "Easy answers from your heart. Made with love by FutureX",
-  "version": "1.4.8.8",
-  "manifest_version": 2,
-  "browser_action": {
-    "default_icon": "icon.png"
-  },
-  "content_scripts": [
-    {
-      "matches": [ "*://www.cambridgelms.org/*" ],
-      "js": [ "jquery.js", "background.js" ],
-	  "run_at": "document_end",
-      "all_frames": true
-    }
-  ],
-  "web_accessible_resources": [
-    "/injected.js"
-  ]
+	"name": "LMS helper ♥",
+	"description": "Easy answers from your heart. Made with love by FutureX",
+	"icons": {
+		"16": "icon.png",
+		"32": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"version": "1.4.8.8",
+	"manifest_version": 2,
+	"browser_action": {
+		"default_icon": "icon.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [ "*://www.cambridgelms.org/*" ],
+			"js": [ "jquery.js", "background.js" ],
+			"run_at": "document_end",
+			"all_frames": true
+		}
+	],
+	"web_accessible_resources": [
+		"/injected.js"
+	]
 }
