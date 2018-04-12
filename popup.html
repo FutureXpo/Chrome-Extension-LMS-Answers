@@ -3,57 +3,19 @@
 <html>
 	<head>
 		<title>LMS Answers</title>
-		<style>
-		body {
-			font-family: sans-serif;
-			background: #f5f5f5;
-			color: #666E79;
-			width: 250px;
-		}
-		div.form {
-			background: white;
-			border: solid 1px #e8e8e8;
-			border-radius: 10px;
-			line-height: 15px;
-		}
-		h1 {
-			margin:0;
-			padding: 0;
-			font-size: 20px;
-			text-align: center;
-			line-height: 40px;
-		}
-		h2 {
-			margin: 10px;
-			padding: 0;
-			font-size: 14px;
-			text-align: center;
-			line-height: 15px;
-		}
-		button {
-			border:solid 1px #5E697C;
-			color: red;
-			font-size: 13px;
-			line-height: 22px;
-			margin: 10px auto 15px;
-			display: block;
-			border-radius: 4px;
-			cursor: pointer;
-			font-weight: bolder;
-			text-shadow: rgba(0,0,0,0.2) -1px -1px 0px;
-			padding: 1 10px;
-		}
-		</style>
+		<link rel="stylesheet" href="popup_style.css">
 		<script type="text/javascript" src="popup.js"> </script>
 	</head>
 	<body>
-		<div class="form">
+		<div class="shadow title_text">
 			<h1>LMS Answers</h1>
 		</div>
-		<div class="checker">
-			<h2><input type="checkbox" id="choiser" checked>Автоматический режим</h2>
-		</div>
-		<div class="newbutton">
+		<div class="button-add style style_1">
+			<input id="choiser" type="checkbox">
+			<label for="choiser" data-on-text="Автоматический режим" data-off-text="Автоматический режим"></label>
+			<div class="button-add__icon"></div>
+		</div>		
+		<div class="">
 			<button id="showBtn">Показать ответы</button>
 		</div>
 	</body>

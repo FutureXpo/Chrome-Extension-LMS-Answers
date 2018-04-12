@@ -20,12 +20,13 @@
 		{
 			"matches": [ "*://www.cambridgelms.org/*" ],
 			"js": [ "jquery.js", "inject.js" ],
-			"run_at": "document_end",
+			"run_at": "document_idle",
 			"all_frames": true
 		}
 	],
 	"permissions": [  
 		"tabs",
+		"contextMenus",
 		"storage"
 	]
 }

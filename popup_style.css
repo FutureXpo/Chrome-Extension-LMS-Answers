@@ -1,0 +1,161 @@
+@import url(https://fonts.googleapis.com/css?family=Arvo:700);
+body {
+  background-color: #222;
+  width: 250px;
+}
+.shadow {
+  color: #fff;
+  font-family: Arvo;
+  font-weight: bold;
+  text-shadow:
+    -3px -3px 0 #222,
+    3px -3px 0 #222,
+    -3px 3px 0 #222,
+    3px 3px 0 #222,
+    4px 4px 0 #fff,
+    5px 5px 0 #fff,
+    6px 6px 0 #fff,
+    7px 7px 0 #fff;
+  line-height: 1.8em;
+  letter-spacing: 0.1em;
+  transform: scaleY(0.7);
+  -webkit-transform: scaleY(0.7);
+  -moz-transform: scaleY(0.7);
+  margin:0;
+  text-align: center;
+  padding:0;
+}
+.title_text {
+  margin: -22px;
+  font-size: 22px;
+}
+.button-add {
+  margin: 0 20px;
+  margin-bottom: 5px;  }
+  
+.button-add {
+  position: relative;
+  display: inline-block;
+  color: #fff; }
+  .button-add label {
+    display: inline-block;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: left; }
+  .button-add input {
+    display: none; }
+  .button-add__icon {
+    cursor: pointer;
+    pointer-events: none; }
+    .button-add__icon:before, .button-add__icon:after {
+      content: "";
+      position: absolute;
+      top: 45%;
+      left: 35%;
+      transition: 0.2s ease-out; }
+	  
+.style label {
+  height: 30px;
+  line-height: 30px;
+  transition: all 0.2s;
+  border-radius: 2rem; }
+.style label:before {
+  content: attr(data-on-text); }
+.style label:after {
+  content: attr(data-off-text); }
+
+.style input[type=checkbox] + label {
+  width: 210px;
+  background: #FF5335; }
+
+.style input[type=checkbox]:checked ~ label {
+  width: 210px;
+  background: #61B136; }
+
+.style input[type=checkbox]:checked ~ .button-add__icon:before {
+  transform: translate(-10%, 100%) rotate(45deg);
+  width: 10.66667px; }
+
+.style input[type=checkbox]:checked ~ .button-add__icon:after {
+  transform: translate(30%) rotate(-45deg); }
+
+.style .button-add__icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 30px;
+  width: 30px; }
+.style .button-add__icon:before, .style .button-add__icon:after {
+  height: 3px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1); }
+.style .button-add__icon:before {
+  width: 17px;
+  transform: rotate(90deg); }
+.style .button-add__icon:after {
+  width: 17px;
+  transform: rotate(0); }
+
+.style_1 label:before, .style_1 label:after {
+  position: absolute;
+  right: 0.9rem;
+  transition: all 0.2s .15s ease-out; }
+.style_2 label:before, .style_2 label:after {
+  position: absolute;
+  right: 1.3rem;
+  transition: all 0.2s .15s ease-out; }
+.style_3 label:before, .style_3 label:after {
+  position: absolute;
+  right: 1.4rem;
+  transition: all 0.2s .15s ease-out; }
+
+	
+	
+button {
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  padding: 10px 30px;
+  margin: 10px 20px;
+  position: relative;
+  color: white;
+  border: 1px solid rgba(255,255,255,.4);
+  background: none;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+button:before,
+button:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  box-sizing: border-box;
+}
+button:before {
+  bottom: 0;
+  left: 0;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  transition: 0s ease opacity .8s, .2s ease width .4s, .2s ease height .6s;
+}
+button:after {
+  top: 0;
+  right: 0;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  transition: 0s ease opacity .4s, .2s ease width , .2s ease height .2s;
+}
+button:hover:before,
+button:hover:after{
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+}
+button:hover:before {transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;}
+button:hover:after {transition: 0s ease opacity .4s, .2s ease height .4s , .2s ease width .6s;}
+button:hover {background: rgba(255,255,255,.2);}
