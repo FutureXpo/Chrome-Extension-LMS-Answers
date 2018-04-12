@@ -1,9 +1,15 @@
 //По окончании загрузки документа вызывается функция
 $(document).ready(function() {
-	var timerId = setInterval(show, 2000);
-	setTimeout(function() {
-		clearInterval(timerId);
-	}, 7000);
+	chrome.storage.sync.get(['choise'], function(items) {
+		var choise=items['choise'];
+		if(choise == undefined) choise = true;
+		if(choise){
+			var timerId = setInterval(show, 2000);
+			setTimeout(function() {
+				clearInterval(timerId);
+			}, 7000);
+		}
+    });
 })
 
 //При получении команды 'show' показывает ответы

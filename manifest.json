@@ -10,7 +10,8 @@
 	"version": "1.4.8.8",
 	"manifest_version": 2,
 	"browser_action": {
-		"default_icon": "icon.png"
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
 	},
 	"background": {
 		"scripts": ["background.js"]
@@ -24,6 +25,7 @@
 		}
 	],
 	"permissions": [  
-		"tabs"
+		"tabs",
+		"storage"
 	]
 }

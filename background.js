@@ -1,7 +1,6 @@
-chrome.browserAction.setBadgeText({text: "on"});
-//При нажатии иконки расширения вызывается данная функция
-chrome.browserAction.onClicked.addListener(function() {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {command: "show"});
-    });
+chrome.storage.sync.get(['choise'], function(items) {
+	var choise=items['choise'];
+	if(choise == undefined) choise = true;
+	if(choise) chrome.browserAction.setBadgeText({text: "on"});
+	else chrome.browserAction.setBadgeText({text: "off"});
 });
