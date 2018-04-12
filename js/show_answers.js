@@ -10,8 +10,8 @@ $(document).ready(function() {
 			}
 		});
 		//Если выбрана функция автоматического показа ответов заппускается функция показа ответов
-		chrome.storage.sync.get(['choise'], function(items) {
-			var choise=items['choise'];
+		chrome.storage.sync.get(['show_answers'], function(items) {
+			var choise=items['show_answers'];
 			if(choise == undefined) choise = true;
 			if(choise){
 				var timerId = setInterval(show, 2000);
@@ -22,7 +22,6 @@ $(document).ready(function() {
 		});
 	}
 })
-
 //Показать ответы
 function show() { 
 	$('*[class^="correct"]').show().removeClass("ng-hide").parent().show().removeClass("ng-hide"); 

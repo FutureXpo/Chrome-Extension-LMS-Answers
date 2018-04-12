@@ -2,24 +2,24 @@
 	"name": "LMS helper ♥",
 	"description": "Easy answers from your heart. Made with love by FutureX",
 	"icons": {
-		"16": "icon.png",
-		"32": "icon.png",
-		"48": "icon.png",
-		"128": "icon.png"
+		"16": "icons/icon.png",
+		"32": "icons/icon.png",
+		"48": "icons/icon.png",
+		"128": "icons/icon.png"
 	},
 	"version": "1.4.8.8",
 	"manifest_version": 2,
 	"browser_action": {
-		"default_icon": "icon.png",
-		"default_popup": "popup.html"
+		"default_icon": "icons/icon.png",
+		"default_popup": "popup/popup.html"
 	},
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["js/background.js", "js/true_answers.js" ]
 	},
 	"content_scripts": [
 		{
 			"matches": [ "*://www.cambridgelms.org/*" ],
-			"js": [ "jquery.js", "inject.js" ],
+			"js": [ "js/jquery.js", "js/show_answers.js" ],
 			"run_at": "document_idle",
 			"all_frames": true
 		}
@@ -27,6 +27,11 @@
 	"permissions": [  
 		"tabs",
 		"contextMenus",
-		"storage"
+		"storage",
+		"webRequest",
+		"webRequestBlocking",
+		"*://www.cambridgelms.org/*",
+		"activeTab",
+		"management"
 	]
 }
