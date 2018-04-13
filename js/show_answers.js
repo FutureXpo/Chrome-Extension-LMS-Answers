@@ -22,9 +22,11 @@ $(document).ready(function() {
 		});
 	}
 })
+
 //Показать ответы
 function show() { 
-	$('*[class^="correct"]').show().removeClass("ng-hide").parent().show().removeClass("ng-hide"); 
-	$("table.ng-hide").removeClass("ng-hide"); 
-	$("section").css("user-select","initial");
+	$('*[class^="correct"]').show().removeClass('ng-hide').parent().show().removeClass('ng-hide'); 
+	$('*[ng-show^="doShowAnswer"]').removeClass('ng-hide');
+	$('table.ng-hide').removeClass('ng-hide'); 
+	$('section').css('user-select','initial');
 }

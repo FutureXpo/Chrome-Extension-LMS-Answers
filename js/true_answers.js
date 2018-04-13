@@ -23,7 +23,7 @@ function off() {
 		chrome.webRequest.onBeforeRequest.removeListener(f);
 	}
 }
-//Прием сообщений
+//Ожидание команд
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) { 
 	if(request.msg==="auto_on") {
 		on();

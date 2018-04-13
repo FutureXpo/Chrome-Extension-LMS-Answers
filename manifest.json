@@ -19,6 +19,10 @@
 	"content_scripts": [
 		{
 			"matches": [ "*://www.cambridgelms.org/*" ],
+			"js": [ "js/simple_mode.js" ],
+			"run_at": "document_end"
+		},{
+			"matches": [ "*://www.cambridgelms.org/*" ],
 			"js": [ "js/jquery.js", "js/show_answers.js" ],
 			"run_at": "document_idle",
 			"all_frames": true

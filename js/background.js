@@ -1,8 +1,12 @@
-chrome.storage.sync.get(['show_answers','true_answers'], function(items) {
+chrome.storage.sync.get(['show_answers','simple_mode','true_answers'], function(items) {
 	var choise=items['show_answers'];
 	if(choise == undefined) choise = true;
 	if(choise) chrome.browserAction.setBadgeText({text: "on"});
 	else chrome.browserAction.setBadgeText({text: "off"});
+	
+	choise=items['simple_mode'];
+	if(choise == undefined) choise = false;
+	if(choise) chrome.browserAction.setBadgeText({text: "on"});
 	
 	choise=items['true_answers'];
 	if(choise == undefined) choise = false;
