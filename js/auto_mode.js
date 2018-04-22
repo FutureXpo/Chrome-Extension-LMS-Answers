@@ -26,14 +26,17 @@ var init = 0;
 //Заполнить ответы
 function auto_mode() { 
 	var test,answers;
-	answers = document.getElementsByTagName('b');
 	//select box
 	test = document.getElementsByClassName('selectBox');
+	answers = document.getElementsByTagName('b');
 	if(test&&answers) fill_selectbox(test,answers);
-	//text input
+	//phrases
+	test = document.getElementsByClassName('all-items-drop');
+	answers = document.getElementsByClassName('correctAnswer');
+	if(test&&answers) fill_phrases(test,answers);
+	//radio_columns
 	test = document.getElementsByTagName('input');
-	if(test&&answers) fill_input(test,answers);
-	
+	if(test) fill_columns(test);
 	//radio button
 	test = document.getElementsByClassName('option_horizontal');
 	answers = document.getElementsByClassName('correct-answers');
@@ -46,6 +49,14 @@ function auto_mode() {
 	test = document.getElementsByClassName('categories')[0];
 	answers = document.getElementsByClassName('categories')[1];
 	if(test&&answers) fill_pronunciation(test,answers);
+	//text input
+	test = document.getElementsByTagName('input');
+	answers = document.getElementsByTagName('b');
+	if(test&&answers) fill_input(test,answers);
+	//editDiv
+	test = document.getElementsByClassName('editableDiv');
+	answers = document.getElementsByClassName('correctAnsDiv');
+	if(test&&answers) fill_editable(test,answers);
 }
 //Заполнить задания, где есть selectBox
 function fill_selectbox(test,answers) { 
@@ -55,7 +66,6 @@ function fill_selectbox(test,answers) {
 		var a = item.innerHTML;
 		if(test_arr[i])
 		Array.prototype.slice.call(test_arr[i].options).forEach(function(item) {
-		//	alert(item.value);
 			if(item.value.includes(a)) {
 				var b = item.value.replace(a, '');
 				if( b.search(/[a-zA-Z]/) === -1 ) test_arr[i].value = item.value;
@@ -63,11 +73,12 @@ function fill_selectbox(test,answers) {
 		});
 	});
 }
-//Заполнить задания, где есть selectBox
+//Заполнить задания, где есть inputBox
 function fill_input(test,answers) { 
 	var test_arr = Array.prototype.slice.call(test);
 	var answers_arr = Array.prototype.slice.call(answers);
 	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
+		if(test_arr[i])
 		if(test_arr[i].getAttribute("type")!=="radio"){
 			test_arr[i].setAttribute("class","inputBox ng-scope ng-valid ng-dirty");
 			test_arr[i].value = item.innerHTML + "-";
@@ -84,7 +95,11 @@ function fill_radio(test,answers) {
 		var radio_arr = Array.prototype.slice.call(test_arr[i].getElementsByTagName('input'));
 		var text_answers_arr = Array.prototype.slice.call(answers_arr[i].getElementsByTagName('b'));
 		var answer = "";
-		if(text_answers_arr) text_answers_arr.forEach(function(item1) {answer+=item1.innerHTML});
+		if(text_answers_arr) text_answers_arr.forEach(function(item1) {
+			answer+=item1.innerHTML.replace(/(^\s*)|(\s*)$/g, '');
+			if(!item1.innerHTML.search(/[a-zA-Z]/)===-1)answer=answer.substring(0,answer.length-1)
+			if(item1.innerHTML!=='-')answer+=' ';
+		});
 		answer=answer.replace(/(^\s*)|(\s*)$/g, '');
 		var text_test_arr = Array.prototype.slice.call(test_arr[i].getElementsByClassName('optionText'));
 		if(text_test_arr) text_test_arr.forEach(function(item1,j) {
@@ -107,15 +122,14 @@ function fill_crossword(test,answers) {
 }
 //Заполнить произношение
 function fill_pronunciation(test,answers) { 
-	var test_choises = document.getElementsByClassName('all-items all-items-container draggable-Item')[0].getElementsByClassName('dragger draggable ng-scope ui-draggable');
-	var text_test_choises = Array.prototype.slice.call(document.getElementsByClassName('all-items all-items-container draggable-Item')[0].getElementsByClassName('ng-binding'));
+	var test_choises = document.getElementsByClassName('all-items-container')[0].getElementsByClassName('dragger');
+	var text_test_choises = Array.prototype.slice.call(document.getElementsByClassName('all-items-container')[0].getElementsByClassName('ng-binding'));
 	var table_test = test.getElementsByClassName('category-box');
 	var table_answers = answers.getElementsByClassName('category-correctans-box');
 	var table_test_arr = Array.prototype.slice.call(table_test);
 	var answers_test_arr = Array.prototype.slice.call(table_answers);
-	if(answers_test_arr) answers_test_arr.forEach(function(item,i) {
+	if(answers_test_arr&&table_test_arr) answers_test_arr.forEach(function(item,i) {
 		var answers = Array.prototype.slice.call(item.getElementsByClassName('dragger'));
-		
 		if(answers) answers.forEach(function(item) {
 			var a = item.getElementsByClassName('ng-binding')[0].innerHTML;
 			if(text_test_choises) text_test_choises.forEach(function(item,j) {
@@ -127,5 +141,50 @@ function fill_pronunciation(test,answers) {
 				}
 			});
 		});
+	});
+}
+//Заполнить фразы словами
+function fill_phrases(test,answers) { 
+	var test_choises = document.getElementsByClassName('all-items-container')[0];
+	if(test_choises){
+		var text_test_choises = Array.prototype.slice.call(test_choises.getElementsByClassName('ng-binding'));
+		test_choises=test_choises.getElementsByClassName('dragger');
+	}
+	var test_arr = Array.prototype.slice.call(test);
+	var answers_arr = Array.prototype.slice.call(answers);
+	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
+		var text_answers_arr = Array.prototype.slice.call(answers_arr[i].getElementsByTagName('b'));
+		var a = "";
+		if(text_answers_arr) text_answers_arr.forEach(function(item1) {a+=item1.innerHTML});
+		a=a.replace(/(^\s*)|(\s*)$/g, '');
+		if(text_test_choises) text_test_choises.forEach(function(item,j) {
+			if(item.innerHTML === a&&test_choises[j].getAttribute("class")!=="dragger draggable ng-scope ui-draggable cloneDropped opacityDiv") {
+				test_choises[j].setAttribute("class","dragger draggable ng-scope ui-draggable cloneDropped opacityDiv");
+				var b = test_choises[j].cloneNode(true);
+				test_arr[i].append(b);
+				test_arr[i].setAttribute("style",b.getAttribute("style"));
+				test_arr[i].setAttribute("class","drop-dest droppable-Item all-items-drop dropped-items ui-droppable droppableWhiteBG droppableTransparentBG");
+				b.setAttribute("class","dragger draggable ng-scope ui-draggable cloneDropped clone");
+				b.setAttribute("style",b.getAttribute("style")+"position: relative; left: 0px; top: 0px;");
+			}
+		});
+	});
+}
+//Заполнить задания, где есть radio columns
+function fill_columns(test) { 
+	var test_arr = Array.prototype.slice.call(test);
+	if(test_arr)test_arr.forEach(function(item, i) {
+		if(test_arr[i+test_arr.length/2])if(test_arr[i+test_arr.length/2].checked)item.click();
+	});
+}
+//Заполнить задания, где надо исправить ошибки
+function fill_editable(test,answers) { 
+	var test_buttons = document.getElementsByClassName('buttonContainer');
+	var test_arr = Array.prototype.slice.call(test);
+	var answers_arr = Array.prototype.slice.call(answers);
+	if(test_arr&&answers_arr)test_arr.forEach(function(item, i) {
+		test_buttons[i].getElementsByTagName('button')[1].click();
+		if(!answers_arr[i].innerHTML.includes("No change"))
+			item.innerHTML=answers_arr[i].innerHTML.replace(/<[^>]+>/g,'');
 	});
 }
