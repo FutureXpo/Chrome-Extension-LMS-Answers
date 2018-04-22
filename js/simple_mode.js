@@ -2,6 +2,7 @@ chrome.storage.sync.get(['simple_mode'], function(items) {
 	var choise=items['simple_mode'];
 	if(choise == undefined) choise = false;
 	if(choise) simple_mode_on();
+	document.getElementById('autologout-cache-check').remove();
 });
 //id и class ненужных элементов
 var massiv_id = ['header','dashboard-toogle','skip-link','tools-iframe','cboxOverlay','colorbox','autologout-cache-check'];
