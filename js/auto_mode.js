@@ -38,6 +38,14 @@ function auto_mode() {
 	test = document.getElementsByClassName('option_horizontal');
 	answers = document.getElementsByClassName('correct-answers');
 	if(test&&answers) fill_radio(test,answers);
+	//crossword
+	test = document.getElementsByClassName('word-Box')[0];
+	answers = document.getElementsByClassName('all-words-Answer')[0];
+	if(test&&answers) fill_crossword(test,answers);
+	//pronunciation
+	test = document.getElementsByClassName('categories')[0];
+	answers = document.getElementsByClassName('categories')[1];
+	if(test&&answers) fill_pronunciation(test,answers);
 }
 //Заполнить задания, где есть selectBox
 function fill_selectbox(test,answers) { 
@@ -84,6 +92,40 @@ function fill_radio(test,answers) {
 				var c = item1.innerHTML.replace(answer, '');
 				if( c.search(/[a-zA-Z]/) === -1 ) radio_arr[j].click();
 			}
+		});
+	});
+}
+//Заполнить кроссворд
+function fill_crossword(test,answers) { 
+	var table_test = test.getElementsByTagName('table')[0];
+	var answers_test = answers.getElementsByTagName('table')[0];
+	var table_test_arr = Array.prototype.slice.call(table_test.getElementsByTagName('div'));
+	var answers_test_arr = Array.prototype.slice.call(answers_test.getElementsByTagName('div'));
+	if(table_test_arr&&answers_test_arr) table_test_arr.forEach(function(item,i) {
+		item.innerHTML = answers_test_arr[i].innerHTML;
+	});
+}
+//Заполнить произношение
+function fill_pronunciation(test,answers) { 
+	var test_choises = document.getElementsByClassName('all-items all-items-container draggable-Item')[0].getElementsByClassName('dragger draggable ng-scope ui-draggable');
+	var text_test_choises = Array.prototype.slice.call(document.getElementsByClassName('all-items all-items-container draggable-Item')[0].getElementsByClassName('ng-binding'));
+	var table_test = test.getElementsByClassName('category-box');
+	var table_answers = answers.getElementsByClassName('category-correctans-box');
+	var table_test_arr = Array.prototype.slice.call(table_test);
+	var answers_test_arr = Array.prototype.slice.call(table_answers);
+	if(answers_test_arr) answers_test_arr.forEach(function(item,i) {
+		var answers = Array.prototype.slice.call(item.getElementsByClassName('dragger'));
+		
+		if(answers) answers.forEach(function(item) {
+			var a = item.getElementsByClassName('ng-binding')[0].innerHTML;
+			if(text_test_choises) text_test_choises.forEach(function(item,j) {
+				if(item.innerHTML === a&&test_choises[j].getAttribute("class")!=="dragger draggable ng-scope ui-draggable cloneDropped opacityDiv") {
+					test_choises[j].setAttribute("class","dragger draggable ng-scope ui-draggable cloneDropped opacityDiv");
+					var b = test_choises[j].cloneNode(true);
+					b.setAttribute("class","dragger draggable ng-scope ui-draggable cloneDropped clone");
+					table_test_arr[i].getElementsByClassName('all-items-drop dropped-items drop-dest')[0].append(b);
+				}
+			});
 		});
 	});
 }
