@@ -11,6 +11,10 @@ chrome.storage.sync.get(['show_mode','simple_mode','true_mode'], function(items)
 	choise=items['true_mode'];
 	if(choise == undefined) choise = false;
 	if(choise) chrome.browserAction.setBadgeText({text: "on"});
+	
+	choise=items['auto_mode'];
+	if(choise == undefined) choise = false;
+	if(choise) chrome.browserAction.setBadgeText({text: "on"});
 });
 //Создать контекстное меню
 chrome.contextMenus.create({"title": "Показать ответы","onclick" : show});
