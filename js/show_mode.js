@@ -10,8 +10,8 @@ $(document).ready(function() {
 			}
 		});
 		//Если выбрана функция автоматического показа ответов заппускается функция показа ответов
-		chrome.storage.sync.get(['show_answers'], function(items) {
-			var choise=items['show_answers'];
+		chrome.storage.sync.get(['show_mode'], function(items) {
+			var choise=items['show_mode'];
 			if(choise == undefined) choise = true;
 			if(choise){
 				var timerId = setInterval(show, 2000);

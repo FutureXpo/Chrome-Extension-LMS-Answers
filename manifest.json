@@ -14,7 +14,7 @@
 		"default_popup": "popup/popup.html"
 	},
 	"background": {
-		"scripts": ["js/background.js", "js/true_answers.js" ]
+		"scripts": ["js/background.js", "js/true_mode.js" ]
 	},
 	"content_scripts": [
 		{
@@ -23,7 +23,7 @@
 			"run_at": "document_end"
 		},{
 			"matches": [ "*://www.cambridgelms.org/*" ],
-			"js": [ "js/jquery.js", "js/show_answers.js" ],
+			"js": [ "js/jquery.js", "js/show_mode.js", "js/auto_mode.js" ],
 			"run_at": "document_idle",
 			"all_frames": true
 		}

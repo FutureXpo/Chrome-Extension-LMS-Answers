@@ -1,5 +1,5 @@
-chrome.storage.sync.get(['true_answers'], function(items) {
-	var choise=items['true_answers'];
+chrome.storage.sync.get(['true_mode'], function(items) {
+	var choise=items['true_mode'];
 	if(choise == undefined) choise = false;
 	if(choise) on();
 });

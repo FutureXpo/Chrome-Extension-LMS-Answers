@@ -55,16 +55,13 @@ body {
       transition: 0.2s ease-out; }
 	  
 .style label {
+  will-change: transform;
   height: 30px;
   line-height: 30px;
   transition: all 0.2s;
   border-radius: 2rem; }
-.style label:before {
-  content: attr(data-on-text); }
-.style label:after {
-  content: attr(data-off-text); }
 
-.style input[type=checkbox] + label {
+.style input[type=checkbox] ~ label {
   width: 210px;
   background: #FF5335; }
 
@@ -79,40 +76,43 @@ body {
 .style input[type=checkbox]:checked ~ .button-add__icon:after {
   transform: translate(30%) rotate(-45deg); }
 
-.style .button-add__icon {
+.button-add__icon {
   position: absolute;
   left: 0;
   top: 0;
   height: 30px;
   width: 30px; }
-.style .button-add__icon:before, .style .button-add__icon:after {
+.button-add__icon:before, .button-add__icon:after {
   height: 3px;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1); }
-.style .button-add__icon:before {
+.button-add__icon:before {
   width: 17px;
   transform: rotate(90deg); }
-.style .button-add__icon:after {
+.button-add__icon:after {
   width: 17px;
   transform: rotate(0); }
 
 .style_1 label:before, .style_1 label:after {
+  content: attr(data-text);
   position: absolute;
-  right: 0.9rem;
-  transition: all 0.2s .15s ease-out; }
+  right: 0.9rem; }
 .style_2 label:before, .style_2 label:after {
+  content: attr(data-text);
   position: absolute;
-  right: 1.3rem;
-  transition: all 0.2s .15s ease-out; }
+  right: 1.3rem; }
 .style_3 label:before, .style_3 label:after {
+  content: attr(data-text);
   position: absolute;
-  right: 1.4rem;
-  transition: all 0.2s .15s ease-out; }
-
-	
+  right: 1.4rem; }
+.style_4 label:before, .style_4 label:after {
+  content: attr(data-text);
+  position: absolute;
+  right: 1.9rem; }	
 	
 button {
+  will-change: transform;
   text-decoration: none;
   outline: none;
   display: inline-block;
