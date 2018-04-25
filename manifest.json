@@ -14,6 +14,10 @@
 		"default_icon": "icons/icon.png",
 		"default_popup": "popup/popup.html"
 	},
+	"options_ui": {
+		"page": "popup/popup.html",
+		"open_in_tab": false
+	},
 	"background": {
 		"scripts": ["js/background.js", "js/true_mode.js" ]
 	},

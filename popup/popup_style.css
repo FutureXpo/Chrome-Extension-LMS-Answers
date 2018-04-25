@@ -97,7 +97,7 @@ body {
 .style_1 label:before, .style_1 label:after {
   content: attr(data-text);
   position: absolute;
-  right: 0.9rem; }
+  right: 0.4rem; }
 .style_2 label:before, .style_2 label:after {
   content: attr(data-text);
   position: absolute;
