@@ -1,4 +1,4 @@
-chrome.storage.sync.get(['show_mode','simple_mode','true_mode'], function(items) {
+chrome.storage.sync.get(['show_mode','simple_mode','true_mode','auto_mode'], function(items) {
 	var choise=items['show_mode'];
 	if(choise == undefined) choise = true;
 	if(choise) chrome.browserAction.setBadgeText({text: "on"});
