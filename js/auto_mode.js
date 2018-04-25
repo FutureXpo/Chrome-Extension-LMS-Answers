@@ -12,7 +12,7 @@ $(document).ready(function() {
 		//Если выбрана функция автоматического показа ответов запускается функция заполнения ответов
 		chrome.storage.sync.get(['auto_mode'], function(items) {
 			var choise=items['auto_mode'];
-			if(choise == undefined) choise = true;
+			if(choise == undefined) choise = false;
 			if(choise){
 				var timerId = setInterval(auto_mode, 2000);
 				setTimeout(function() {
@@ -63,7 +63,7 @@ function fill_selectbox(test,answers) {
 	var test_arr = Array.prototype.slice.call(test);
 	var answers_arr = Array.prototype.slice.call(answers);
 	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
-		var a = item.innerHTML;
+		var a = item.innerHTML.replace(/(^\s*)|(\s*)$/g, '');;
 		if(test_arr[i])
 		Array.prototype.slice.call(test_arr[i].options).forEach(function(item) {
 			if(item.value.includes(a)) {
@@ -79,7 +79,7 @@ function fill_input(test,answers) {
 	var answers_arr = Array.prototype.slice.call(answers);
 	var txt_answers_arr = [];
 	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
-		txt_answers_arr = push_answer_b(item.getElementsByClassName("showAnswersentenseClass")[0],txt_answers_arr);
+		txt_answers_arr = push_answer_b(item.getElementsByClassName("showAnswersentenseClass"),txt_answers_arr);
 	});
 	if(answers_arr&&test_arr)test_arr.forEach(function(item, i) {
 		if(item.getAttribute("type")!=="radio"&&item.getAttribute("class")!=="inputBox ng-scope ng-valid ng-dirty"){
@@ -203,42 +203,45 @@ function fill_editable(test,answers) {
 	});
 }
 //Найти ответы в строке(для inputBox)
-function push_answer_b(answers,answers_arr){
-	if(answers){
-		var txt = answers.innerHTML+" ";
-		var answer = "";
-		var mode = 0;
-		var i = 0;
-		for(var i=0; i<txt.length;i++) {
-			var a = txt[i];
-			switch(mode){
-				case 0:
-					if(a === "<"){
-						var b = txt.substring(i,txt.length);
-						if(b.startsWith("<b>")){
-							mode = 2;
-						}
-					}
-					break;
-				case 1:
-					if(a === "<"){
-						var b = txt.substring(i,txt.length);
-						if(b.startsWith("</b>")){
-							mode = 0;
-							if(!b.startsWith("</b><")){
-								answer=answer.replace(/(^\s*)|(\s*)$/g, '');
-								answers_arr.push(answer);
-								answer = "";
+function push_answer_b(answer_arr,answers_arr){
+	var answers = Array.prototype.slice.call(answer_arr);
+	if(answers)answers.forEach(function(answers) {
+		if(answers){
+			var txt = answers.innerHTML+" ";
+			var answer = "";
+			var mode = 0;
+			var i = 0;
+			for(var i=0; i<txt.length;i++) {
+				var a = txt[i];
+				switch(mode){
+					case 0:
+						if(a === "<"){
+							var b = txt.substring(i,txt.length);
+							if(b.startsWith("<b>")){
+								mode = 2;
 							}
 						}
-					}
-					else answer += a;
-					break;
-				case 2:
-					if(a === ">"){
-						mode = 1;
-					}
-					break;
+						break;
+					case 1:
+						if(a === "<"){
+							var b = txt.substring(i,txt.length);
+							if(b.startsWith("</b>")){
+								mode = 0;
+								if(!b.startsWith("</b><")){
+									answer=answer.replace(/(^\s*)|(\s*)$/g, '');
+									answers_arr.push(answer);
+									answer = "";
+								}
+							}
+						}
+						else answer += a;
+						break;
+					case 2:
+						if(a === ">"){
+							mode = 1;
+						}
+						break;
+				}
 			}
 		}
 	}
