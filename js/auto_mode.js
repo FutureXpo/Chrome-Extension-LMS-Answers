@@ -148,23 +148,28 @@ function fill_pronunciation(test,answers) {
 }
 //Заполнить фразы словами
 function fill_phrases(test,answers) { 
+	var test_arr = Array.prototype.slice.call(test);
+	var answers_arr = Array.prototype.slice.call(answers);
 	var test_choises = document.getElementsByClassName('all-items-container')[0];
+	var txt_answers_arr = [];
 	if(test_choises){
 		var text_test_choises = Array.prototype.slice.call(test_choises.getElementsByClassName('ng-binding'));
 		test_choises=test_choises.getElementsByClassName('dragger');
 	}
-	var test_arr = Array.prototype.slice.call(test);
-	var answers_arr = Array.prototype.slice.call(answers);
+	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
+		txt_answers_arr = push_answer_b(answers,txt_answers_arr);
+	});
 	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
 		var lil = 0;
-		var text_answers_arr = Array.prototype.slice.call(answers_arr[i].getElementsByTagName('b'));
+		/*var text_answers_arr = Array.prototype.slice.call(answers_arr[i].getElementsByTagName('b'));
 		var a = "";
 		if(text_answers_arr) text_answers_arr.forEach(function(item1) {
 			if(item1.innerHTML.search(/[a-zA-Z]/)===-1)a=a.substring(0,a.length-1);
 			a+=item1.innerHTML.replace(/(^\s*)|(\s*)$/g, '');
 			if(item1.innerHTML!=='-')a+=' ';
 		});
-		a=a.replace(/(^\s*)|(\s*)$/g, '');
+		a=a.replace(/(^\s*)|(\s*)$/g, '');*/
+		var a = txt_answers_arr[i];
 		if(text_test_choises) text_test_choises.forEach(function(item,j) {
 			if(item.innerHTML.includes(a)) {
 				var b = item.innerHTML.replace(a, '');
@@ -227,7 +232,7 @@ function push_answer_b(answer_arr,answers_arr){
 							var b = txt.substring(i,txt.length);
 							if(b.startsWith("</b>")){
 								mode = 0;
-								if(!b.startsWith("</b><")){
+								if(!b.startsWith("</b><b>")){
 									answer=answer.replace(/(^\s*)|(\s*)$/g, '');
 									answers_arr.push(answer);
 									answer = "";
@@ -244,6 +249,6 @@ function push_answer_b(answer_arr,answers_arr){
 				}
 			}
 		}
-	}
+	});
 	return answers_arr;
 }
