@@ -107,11 +107,11 @@ function fill_radio(test,answers) {
 			answer+=item1.innerHTML.replace(/(^\s*)|(\s*)$/g, '');
 			if(item1.innerHTML!=='-')answer+=' ';
 		});
-		answer=answer.replace(/(^\s*)|(\s*)$/g, '');
+		answer=answer.replace('/','').replace(/(^\s*)|(\s*)$/g, '');
 		var text_test_arr = Array.prototype.slice.call(test_arr[i].getElementsByClassName('optionText'));
 		if(text_test_arr) text_test_arr.forEach(function(item1,j) {
-			if(item1.innerHTML.includes(answer)) {
-				var c = item1.innerHTML.replace(answer, '');
+			if(item1.innerText.includes(answer)) {
+				var c = item1.innerText.replace(answer, '');
 				if( c.search(/[a-zA-Z]/) === -1 ) radio_arr[j].click();
 			}
 		});
@@ -166,9 +166,7 @@ function fill_phrases(test,answers) {
 		test_choises=test_choises.getElementsByClassName('dragger');
 	}
 	if(answers_arr&&test_arr)txt_answers_arr = push_answer_b(answers,txt_answers_arr);
-		
-	
-	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
+	if(answers_arr&&test_arr)test_arr.forEach(function(item, i) {
 		var lil = 0;
 		/*var text_answers_arr = Array.prototype.slice.call(answers_arr[i].getElementsByTagName('b'));
 		var a = "";
@@ -259,6 +257,7 @@ function push_answer_b(answer_arr,answers_arr){
 							if(b.startsWith("<b>")){
 								mode = 2;
 								answer+=" ";
+								if(answer.endsWith(" - "))answer=answer.substring(0,answer.length-3)+"-";
 							}
 						}
 						break;
