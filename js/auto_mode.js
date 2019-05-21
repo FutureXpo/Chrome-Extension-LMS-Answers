@@ -34,6 +34,7 @@ function auto_mode() {
 	test = document.getElementsByClassName('all-items-drop');
 	answers = document.getElementsByClassName('correctAnswer');
 	if(test&&answers) fill_phrases(test,answers);
+	if(test&&answers) fill_sentence(test,answers);
 	//radio_columns
 	test = document.getElementsByTagName('input');
 	if(test) fill_columns(test);
@@ -193,6 +194,43 @@ function fill_phrases(test,answers) {
 		});
 	});
 }
+//Заполнить фразы предложениями
+function fill_sentence(test,answers) { 
+	var test_arr = Array.prototype.slice.call(test);
+	var answers_arr = Array.prototype.slice.call(answers);
+	var test_choises = document.getElementsByClassName('all-items-container')[0];
+	var txt_answers_arr = [];
+	if(test_choises){
+		var text_test_choises = Array.prototype.slice.call(test_choises.getElementsByClassName('ng-binding'));
+		test_choises=test_choises.getElementsByClassName('dragger');
+	}
+	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
+		var ks = push_answer_c(item);
+		alert(ks);
+		txt_answers_arr.push(ks.replace(/(^\s*)|(\s*)$/g, ''));
+	});
+	if(answers_arr&&test_arr)answers_arr.forEach(function(item, i) {
+		var lil = 0;
+		var a = txt_answers_arr[i];
+		if(text_test_choises) text_test_choises.forEach(function(item,j) {
+			if(item.innerHTML.includes(a)) {
+				var b = item.innerHTML.replace(a, '');
+				if( b.search(/[a-zA-Z]/) === -1 ) 
+					if(lil===0&&test_choises[j].getAttribute("class")!=="dragger draggable ng-scope ui-draggable cloneDropped opacityDiv") {
+						test_choises[j].setAttribute("class","dragger draggable ng-scope ui-draggable cloneDropped opacityDiv");
+						var b = test_choises[j].cloneNode(true);
+						test_arr[i].append(b);
+						test_arr[i].setAttribute("style",b.getAttribute("style"));
+						test_arr[i].setAttribute("class","drop-dest droppable-Item all-items-drop dropped-items ui-droppable droppableWhiteBG droppableTransparentBG");
+						b.setAttribute("class","dragger draggable ng-scope ui-draggable cloneDropped clone");
+						b.setAttribute("style",b.getAttribute("style")+"position: relative; left: 0px; top: 0px;");
+						lil=1;
+					}
+			}
+			
+		});
+	});
+}
 //Заполнить задания, где есть radio columns
 function fill_columns(test) { 
 	var test_arr = Array.prototype.slice.call(test);
@@ -279,5 +317,46 @@ function push_answer_b(answer_arr,answers_arr){
 			}
 		}
 	});
+	return answers_arr;
+}
+//Найти ответы в строке(для inputBox)
+function push_answer_c(answers){
+	var answers_arr = "";
+	var txt = answers.innerHTML+" ";
+	var answer = "";
+	var mode = 0;
+	var i = 0;
+	for(var i=0; i<txt.length;i++) {
+		var a = txt[i];
+		switch(mode){
+			case 0:
+				if(a === "<"){
+					var b = txt.substring(i,txt.length);
+					if(b.startsWith("<b>")){
+						mode = 2;
+					}
+				}
+				break;
+			case 1:
+				if(a === "<"){
+					var b = txt.substring(i,txt.length);
+					if(b.startsWith("</b>")){
+						mode = 0;
+						if(!b.startsWith("</b><b>")){
+							answer=answer.replace(/(^\s*)|(\s*)$/g, '');
+							answers_arr+=" " +answer;
+							answer = "";
+						}
+					}
+				}
+				else answer += a;
+				break;
+			case 2:
+				if(a === ">"){
+					mode = 1;
+				}
+				break;
+		}
+	}
 	return answers_arr;
 }
