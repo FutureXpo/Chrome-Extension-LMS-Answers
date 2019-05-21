@@ -57,6 +57,7 @@ function auto_mode() {
 	test = document.getElementsByClassName('editableDiv');
 	answers = document.getElementsByClassName('correctAnsDiv');
 	if(test&&answers) fill_editable(test,answers);
+	//moveToken
 	test = document.getElementsByClassName('moveToken');
 	answers = document.getElementsByClassName('answerSentClass');
 	if(test&&answers) fill_sorting(test,answers);
@@ -230,7 +231,7 @@ function fill_editable(test,answers) {
 	var test_arr = Array.prototype.slice.call(test);
 	var answers_arr = Array.prototype.slice.call(answers);
 	if(test_arr&&answers_arr)test_arr.forEach(function(item, i) {
-		test_buttons[i].getElementsByTagName('button')[1].click();
+		test_buttons[i].getElementsByTagName('button')[0].click();
 		if(!answers_arr[i].innerHTML.includes("No change"))
 			item.innerHTML=answers_arr[i].innerHTML.replace(/<[^>]+>/g,'');
 	});
