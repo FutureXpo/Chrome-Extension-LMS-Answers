@@ -179,7 +179,6 @@ function fill_phrases(test,answers) {
 		});
 		a=a.replace(/(^\s*)|(\s*)$/g, '');*/
 		var a = txt_answers_arr[i];
-		alert(a);
 		if(text_test_choises) text_test_choises.forEach(function(item,j) {
 			if(item.innerHTML.includes(a)) {
 				var b = item.innerHTML.replace(a, '');
