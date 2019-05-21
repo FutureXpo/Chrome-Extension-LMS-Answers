@@ -57,6 +57,9 @@ function auto_mode() {
 	test = document.getElementsByClassName('editableDiv');
 	answers = document.getElementsByClassName('correctAnsDiv');
 	if(test&&answers) fill_editable(test,answers);
+	test = document.getElementsByClassName('moveToken');
+	answers = document.getElementsByClassName('answerSentClass');
+	if(test&&answers) fill_sorting(test,answers);
 }
 //Заполнить задания, где есть selectBox
 function fill_selectbox(test,answers) { 
@@ -194,6 +197,31 @@ function fill_columns(test) {
 	var test_arr = Array.prototype.slice.call(test);
 	if(test_arr)test_arr.forEach(function(item, i) {
 		if(test_arr[i+test_arr.length/2])if(test_arr[i+test_arr.length/2].checked)item.click();
+	});
+}
+//Заполнить задания, где надо перемещать
+function fill_sorting(test,answers) { 
+	var test_arr = Array.prototype.slice.call(test);
+	var answers_arr = Array.prototype.slice.call(answers);
+	if(test_arr&&answers_arr)test_arr.forEach(function(item, i) {
+		var text_test_choises = Array.prototype.slice.call(item.getElementsByClassName('ng-binding'));
+		var test_choises = Array.prototype.slice.call(item.getElementsByClassName('sorting_li ng-scope'));
+		var answer = answers_arr[i].innerHTML.replace(/<[^>]+>/g,'').replace(/(^\s*)|(\s*)$/g, '');
+		var size = text_test_choises.length;
+		var a = answer;
+		var b = "";
+		while (size > 0){
+			text_test_choises.forEach(function(item1, i) {
+				if(item1.innerHTML.toUpperCase().includes(a.toUpperCase())){
+					size--;
+					answer=answer.substring(a.length,answer.length).replace(/(^\s*)|(\s*)$/g, '');
+					a=answer;
+					b = b + test_choises[i].outerHTML;
+				}
+			});
+			a = a.substring(0,a.length-1);
+		}
+		item.innerHTML = b;
 	});
 }
 //Заполнить задания, где надо исправить ошибки
